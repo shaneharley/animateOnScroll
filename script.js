@@ -10,51 +10,36 @@ const animateTextIn = (entry) => {
   childrenOfEntry.forEach(child => {
     //if the child has the class of fadeIn then it animates it
     if (child.classList.contains("fadeIn")) {
-      if (child.classList.contains("active")) {
-        //THIS IS HOW I PREVENT IT FROM RUNNING AGAIN IF IT'S ALREADY DONE IT
+      if (child.dataset.loaded == "true") {
         return
       } else {
         //THIS IS HOW I MAKE IT DO A STAGGERED FADE IN AND SLIDE UP ON FIRST LOAD
         //here i'm saying that if it hasn't appeared for the first time, I just want to transition the opacity and transform NOT the color
-        child.style.transitionProperty = "opacity, transform"
         child.style.transitionDelay = transitionTime + "s"
         child.classList.add("active")
         transitionTime = transitionTime + .3
 
         //THIS IS HOW I WIPE THOSE STYLES FOR FUTURE LOADS
         let waitingTime = (childrenOfEntry.length - 1) * (10 * 100)
-        //running a timeout where it resets the transition styles I applied
+        //running a timeout where it resets the styles and applies the data attribute of loaded to prevent it loading future times
         setTimeout(() => {
           childrenOfEntry.forEach(child => {
-            child.style = ""
+            child.dataset.loaded = "true"
+            child.removeAttribute("style")
           })
         }, waitingTime)
-
       }
     }
-
   })
 }
 
-
-
-
 const toggleDarkMode = (entry) => {
   if (entry.target.dataset.mode == "dark") {
-    console.log("dark mode!")
-    document.body.classList.remove("lightMode")
-    document.body.classList.add("darkMode")
+    document.body.dataset.theme = "dark"
   } else {
-    console.log("light mode")
-    document.body.classList.add("lightMode")
-    document.body.classList.remove("darkMode")
+    document.body.dataset.theme = "light"
   }
 }
-
-//here I'm saying once it's run, create the observer
-window.addEventListener('load', (event) => {
-  createObserver()
-})
 
 //this is creating my observer
 const createObserver = () => {
@@ -64,7 +49,7 @@ const createObserver = () => {
     root: null,
     rootMargin: '0px',
     //how much has to be in view
-    threshold: .7
+    threshold: .5
   }
 
   //what I want to be looking out for
@@ -88,5 +73,8 @@ const handleIntersect = (entries, observer) => {
   })
 }
 
-
+//here I'm saying once it's run, create the observer
+window.addEventListener('load', (event) => {
+  createObserver()
+})
 

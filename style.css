@@ -1,34 +1,25 @@
+:root {
+  --primary-color: white;
+  --secondary-color: black;
+}
+[data-theme="dark"] {
+  --primary-color:black;
+  --secondary-color: white;
+}
 body {
+  background-color: var(--primary-color);
   transition-property: background-color;
   transition-duration: 2s;
 }
-
-.darkMode {
-  background-color: black;
-}
-
-.darkMode p {
-  color: white;
-  transition-property: color;
-  transition-duration: 1s;
-}
-
-.lightMode {
-  background-color:#999;
-}
-
-.lightMode p {
-  color: black;
-  transition-property: color;
-  transition-duration: 1s;
-}
-
 p {
+  color: var(--secondary-color);
   font-size: 40px;
   font-family: Helvetica, sans-serif;
   padding: 0px;
   margin: 0px;
 }
+
+
 
 .fadeIn {
   transform: translateY(50px);
@@ -45,6 +36,10 @@ section {
   height: 100vh;
 }
 
+[data-loaded="true"] {
+  transition-property: color;
+  transition-delay: 0s;
+}
 
 
 
