@@ -2,13 +2,14 @@
 //it passes in the entry that just passed the threshold
 const animateTextIn = (entry) => {
   //gets every child of the entry
-  let childrenofEntry = entry.target.childNodes
+  //this is weird, because the .children doesn't return an array, I have to turn it into one in order to use forEach with it
+  let childrenofEntry = Array.from(entry.target.children)
   let transitionTime = 0.5
 
   //loops through each child
   childrenofEntry.forEach(child => {
     //if the child has the class of fadeIn then it animates it
-    if (child.className == "fadeIn") {
+    if (child.classList.contains("fadeIn")) {
       child.classList.add("active")
       child.style.transitionDelay = transitionTime + "s"
       transitionTime = transitionTime + .3
@@ -24,8 +25,8 @@ const toggleDarkMode = (entry) => {
     document.body.classList.add("darkMode")
   } else {
     console.log("light mode")
-    document.body.classList.remove("darkMode")
     document.body.classList.add("lightMode")
+    document.body.classList.remove("darkMode")
   }
 }
 
