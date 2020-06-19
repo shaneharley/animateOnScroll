@@ -5,10 +5,12 @@ body {
 
 .darkMode {
   background-color: black;
-
 }
+
 .darkMode p {
   color: white;
+  transition-property: color;
+  transition-duration: 1s;
 }
 
 .lightMode {
@@ -17,6 +19,8 @@ body {
 
 .lightMode p {
   color: black;
+  transition-property: color;
+  transition-duration: 1s;
 }
 
 p {

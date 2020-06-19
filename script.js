@@ -3,19 +3,40 @@
 const animateTextIn = (entry) => {
   //gets every child of the entry
   //this is weird, because the .children doesn't return an array, I have to turn it into one in order to use forEach with it
-  let childrenofEntry = Array.from(entry.target.children)
-  let transitionTime = 0.5
+  let childrenOfEntry = Array.from(entry.target.children)
+  let transitionTime = 0.0
 
   //loops through each child
-  childrenofEntry.forEach(child => {
+  childrenOfEntry.forEach(child => {
     //if the child has the class of fadeIn then it animates it
     if (child.classList.contains("fadeIn")) {
-      child.classList.add("active")
-      child.style.transitionDelay = transitionTime + "s"
-      transitionTime = transitionTime + .3
+      if (child.classList.contains("active")) {
+        //THIS IS HOW I PREVENT IT FROM RUNNING AGAIN IF IT'S ALREADY DONE IT
+        return
+      } else {
+        //THIS IS HOW I MAKE IT DO A STAGGERED FADE IN AND SLIDE UP ON FIRST LOAD
+        //here i'm saying that if it hasn't appeared for the first time, I just want to transition the opacity and transform NOT the color
+        child.style.transitionProperty = "opacity, transform"
+        child.style.transitionDelay = transitionTime + "s"
+        child.classList.add("active")
+        transitionTime = transitionTime + .3
+
+        //THIS IS HOW I WIPE THOSE STYLES FOR FUTURE LOADS
+        let waitingTime = (childrenOfEntry.length - 1) * (10 * 100)
+        //running a timeout where it resets the transition styles I applied
+        setTimeout(() => {
+          childrenOfEntry.forEach(child => {
+            child.style = ""
+          })
+        }, waitingTime)
+
+      }
     }
+
   })
 }
+
+
 
 
 const toggleDarkMode = (entry) => {
