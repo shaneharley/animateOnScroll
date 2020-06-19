@@ -1,0 +1,44 @@
+.darkMode {
+  background-color: black;
+  transition-property: background-color, color;
+  transition-duration: 1s;
+}
+.darkMode p {
+  color: white;
+}
+
+.lightMode {
+  background-color: white;
+  transition-property: background-color, color;
+  transition-duration: 1s;
+}
+.lightMode p {
+  color: black;
+
+}
+
+p {
+  font-size: 40px;
+  font-family: Helvetica, sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+.fadeIn {
+  transform: translateY(50px);
+  transition-property: transform, opacity;
+  transition-duration: 1s;
+  opacity: 0;
+}
+.fadeIn.active {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+section {
+  height: 100vh;
+}
+
+
+
+
